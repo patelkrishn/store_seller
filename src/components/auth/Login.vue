@@ -30,8 +30,9 @@
                     label="Login"
                     name="login"
                     prepend-icon="person"
-                    type="text"
+                    type="email"
                     v-model="form.email"
+                    outlined
                   ></v-text-field>
 
                   <v-text-field
@@ -41,6 +42,7 @@
                     prepend-icon="lock"
                     type="password"
                     v-model="form.password"
+                    outlined
                   ></v-text-field>
                 </v-form>
               </v-card-text>

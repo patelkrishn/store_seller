@@ -1,6 +1,6 @@
 <template>
   <nav v-if="currentUser">
-    <v-toolbar app class="cyan accent-4" flat >
+    <v-app-bar app class="cyan accent-4" flat >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title class="text-uppercase black--text">
         <!-- <span class="font-weight-light">Store </span> -->
@@ -15,9 +15,9 @@
         <span>Sign Out</span>
         <v-icon right>exit_to_app</v-icon>
       </v-btn>
-    </v-toolbar>
+    </v-app-bar>
 
-    <v-navigation-drawer  v-model="drawer" temporary app width="261">
+    <v-navigation-drawer  v-model="drawer" app width="261">
       <v-list-item>
           <v-list-item-content>
             <v-list-item-title class="title">
@@ -106,9 +106,6 @@ export default {
     currentUser() {
       return this.$store.getters.currentUser;
     },
-  },
-  created() {
-    console.log(this.$router.app._route.name);
   }
 };
 </script>
