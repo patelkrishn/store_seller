@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <v-container>
     <h2>{{ welcome }}</h2>
-  </div>
+  </v-container>
 </template>
 
 <script>

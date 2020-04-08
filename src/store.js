@@ -5,7 +5,7 @@ const user = getLocalUser();
 export default {
     state: {
         // apiUrl : 'http://localhost:5758/api/seller',
-        apiUrl : 'http://cdn.lninfosystem.com/store/api/seller',
+        apiUrl : 'https://myhisab.store/cdn/api/seller',
         currentUser: user,
         isLoggedIn: !! user,
         loading: false,

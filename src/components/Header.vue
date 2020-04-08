@@ -70,6 +70,13 @@
   
           
         </v-list-group>
+        <v-list-item router to="/invoice-create">
+          <v-list-item-icon>
+            <v-icon>receipt</v-icon>
+          </v-list-item-icon>
+  
+          <v-list-item-title>Create Invoice</v-list-item-title>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
   </nav>

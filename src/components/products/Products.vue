@@ -1,96 +1,144 @@
 <template>
   <v-container>
     <v-card class="mx-auto mt-5">
-      <v-data-table
-        :headers="headers"
-        :items="getProducts"
-        sort-by="calories"
-        class="elevation-1"
-      >
+      <template v-if="getProducts.length == 0">
+        <v-data-table
+          item-key="name"
+          :headers="headers"
+          class="elevation-1"
+          loading
+          loading-text="Loading... Please wait"
+        >
         <template v-slot:top>
-          <v-toolbar flat color="white">
-            <v-toolbar-title>Products</v-toolbar-title>
-            <v-divider class="mx-4" inset vertical></v-divider>
-            <v-spacer></v-spacer>
-            <v-dialog v-model="dialog" max-width="500px">
-              <template v-slot:activator="{ on }">
-                <v-btn color="primary" dark class="mb-2" v-on="on"
-                  >Add New</v-btn
-                >
-              </template>
-              <v-card>
-                <v-card-title>
-                  <span class="headline">{{ formTitle }}</span>
-                </v-card-title>
+            <v-toolbar flat color="white">
+              <v-toolbar-title>Products</v-toolbar-title>
+              <v-divider class="mx-4" inset vertical></v-divider>
+              <v-spacer></v-spacer>
+                <v-text-field
+                    dense=""
+                    v-model="search"
+                    append-icon="mdi-magnify"
+                    label="Search"
+                    single-line
+                    hide-details>
+                </v-text-field>
+              <v-btn color="primary" dark class="mb-2 ml-5" v-on="on">Add New</v-btn>
+            </v-toolbar>
+          </template>
+        </v-data-table>
+      </template>
+      <template v-else>
+        <v-data-table
+            :headers="headers"
+            :search="search"
+            :items="getProducts"
+            sort-by="calories"
+            class="elevation-1"
+        >
+          <template v-slot:top>
+            <v-toolbar flat color="white">
+              <v-toolbar-title>Products</v-toolbar-title>
+              <v-divider class="mx-4" inset vertical></v-divider>
+              <v-spacer></v-spacer>
+              <v-text-field
+              full-width=true
+              dense=""
+                    v-model="search"
+                    append-icon="mdi-magnify"
+                    label="Search"
+                    single-line
+                    hide-details
+                ></v-text-field>
+              <v-dialog v-model="dialog" max-width="500px" >
+                <template v-slot:activator="{ on }">
+                  <v-btn color="primary" dark class="mb-2 ml-5" v-on="on"
+                    >Add New</v-btn
+                  >
+                </template>
+                <v-card>
+                  <v-card-title>
+                    <span class="headline">{{ formTitle }}</span>
+                  </v-card-title>
 
-                <v-form ref="form">
-                  <v-card-text>
-                    <v-container>
-                      <v-row>
-                        <v-col cols="12" sm="6" md="6">
-                          <v-text-field
-                            label="Product name"
-                            type="text"
-                            v-model="editedItem.product_name"
-                            :rules="[validationRules.required]"
-                            outlined
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="12" sm="6" md="6">
-                          <v-text-field
-                            v-model="editedItem.product_sku"
-                            label="Product SKU"
-                            :rules="[validationRules.required]"
-                            outlined
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="12" sm="6" md="6">
-                          <v-text-field
-                            v-model="editedItem.product_stock_quantity"
-                            label="Product stock"
-                            :rules="[validationRules.required]"
-                            outlined
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="12" sm="6" md="6">
-                          <v-text-field
-                            v-model="editedItem.product_price"
-                            label="Product price"
-                            :rules="[validationRules.required]"
-                            outlined
-                          ></v-text-field>
-                        </v-col>
-                      </v-row>
-                    </v-container>
-                  </v-card-text>
+                  <v-form ref="form">
+                    <v-card-text>
+                      <v-container>
+                        <v-row>
+                          <v-col cols="12" sm="6" md="6">
+                            <v-text-field
+                              label="Product name"
+                              type="text"
+                              v-model="editedItem.product_name"
+                              :rules="[validationRules.required]"
+                              outlined
+                            ></v-text-field>
+                          </v-col>
+                          <v-col cols="12" sm="6" md="6">
+                            <v-text-field
+                              v-model="editedItem.product_sku"
+                              label="Product SKU"
+                              :rules="[validationRules.required]"
+                              outlined
+                            ></v-text-field>
+                          </v-col>
+                          <v-col cols="12" sm="6" md="6">
+                            <v-text-field
+                              v-model="editedItem.product_stock_quantity"
+                              label="Product stock"
+                              :rules="[validationRules.required]"
+                              outlined
+                            ></v-text-field>
+                          </v-col>
+                          <v-col cols="12" sm="6" md="6">
+                            <v-text-field
+                              v-model="editedItem.product_price"
+                              label="Product price"
+                              :rules="[validationRules.required]"
+                              outlined
+                            ></v-text-field>
+                          </v-col>
+                        </v-row>
+                      </v-container>
+                    </v-card-text>
 
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text @click="close"
-                      >Cancel</v-btn
-                    >
-                    <v-btn color="blue darken-1" text @click="save">Save</v-btn>
-                  </v-card-actions>
-                </v-form>
-              </v-card>
-            </v-dialog>
-          </v-toolbar>
-        </template>
-        <template v-slot:item.actions="{ item }">
-          <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
-          <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
-        </template>
-      </v-data-table>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn color="blue darken-1" text @click="close"
+                        >Cancel</v-btn
+                      >
+                      <v-btn color="blue darken-1" text @click="save"
+                        >Save</v-btn
+                      >
+                    </v-card-actions>
+                  </v-form>
+                </v-card>
+              </v-dialog>
+            </v-toolbar>
+          </template>
+          <template v-slot:item.actions="{ item }">
+            <v-icon small class="mr-2" @click="editItem(item)"
+              >mdi-pencil</v-icon
+            >
+            <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
+          </template>
+        </v-data-table>
+      </template>
     </v-card>
   </v-container>
 </template>
 
 <script>
-import { getAllProducts, addProduct, deleteProduct, updateProduct } from "../../api/Products";
+import {
+  getAllProducts,
+  addProduct,
+  deleteProduct,
+  updateProduct,
+} from "../../api/Products";
 export default {
   name: "Products",
   data() {
     return {
+      search: '',
       dialog: false,
       validationRules: {
         required: (value) => !!value || "Required.",
@@ -124,15 +172,15 @@ export default {
     };
   },
   methods: {
-      fetchRemoteProduct() {
-          getAllProducts()
-      .then((res) => {
-        this.$store.commit("products", res);
-      })
-      .catch((error) => {
-        this.$store.commit("errorMessage", { error });
-      });
-      },
+    fetchRemoteProduct() {
+      getAllProducts()
+        .then((res) => {
+          this.$store.commit("products", res);
+        })
+        .catch((error) => {
+          this.$store.commit("errorMessage", { error });
+        });
+    },
     close() {
       this.dialog = false;
       this.$refs.form.reset();
@@ -147,34 +195,29 @@ export default {
         if (this.editedIndex > -1) {
           updateProduct(this.editedItem)
             .then((res) => {
-                // console.log(res);
-              this.$store.commit(
-                "successMessage",
-                res.data.message
-              );
-            this.fetchRemoteProduct();
-            this.close();
+              // console.log(res);
+              this.$store.commit("successMessage", res.data.message);
+              this.fetchRemoteProduct();
+              this.close();
+              this.$refs.form.reset();
             })
             .catch((error) => {
               if (error.response) {
-                 console.log(error.response);
+                console.log(error.response);
               }
             });
         } else {
           // this.desserts.push(this.editedItem)
           addProduct(this.editedItem)
             .then((res) => {
-                // console.log(res);
-              this.$store.commit(
-                "successMessage",
-                res.data.message
-              );
-            this.fetchRemoteProduct();
-            this.close();
+              // console.log(res);
+              this.$store.commit("successMessage", res.data.message);
+              this.fetchRemoteProduct();
+              this.close();
             })
             .catch((error) => {
               if (error.response) {
-                 console.log(error.response);
+                console.log(error.response);
               }
             });
         }
@@ -190,20 +233,17 @@ export default {
     deleteItem(item) {
       confirm("Are you sure you want to delete this item?") &&
         deleteProduct(item.id)
-            .then((res) => {
-                console.log(res);
-              this.$store.commit(
-                "successMessage",
-                res.data.message
-              );
-              this.fetchRemoteProduct();
-            })
-            .catch((error) => {
-                 console.log(error);
-              if (error.response) {
-                 console.log(error.response);
-              }
-            });
+          .then((res) => {
+            console.log(res);
+            this.$store.commit("successMessage", res.data.message);
+            this.fetchRemoteProduct();
+          })
+          .catch((error) => {
+            console.log(error);
+            if (error.response) {
+              console.log(error.response);
+            }
+          });
     },
   },
   computed: {
@@ -219,6 +259,7 @@ export default {
     dialog(val) {
       // console.log(val);
       val || this.close();
+      this.$refs.form.reset();
     },
   },
   created() {

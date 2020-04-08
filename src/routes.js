@@ -5,6 +5,7 @@ import Products from './components/products/Products';
 import Inventories from './components/inventories/Inventories';
 import InventoryAdd from './components/inventories/InventoryAdd';
 import InventoryReport from './components/inventories/InventoryReport';
+import InvoiceCreate from './components/invoices/InvoiceCreate';
 
 export const routes = [
     {
@@ -53,6 +54,14 @@ export const routes = [
         path : '/inventories-report',
         component : InventoryReport,
         name : 'Inventory Report',
+        meta : {
+            requiresAuth : true
+        }
+    },
+    {
+        path : '/invoice-create',
+        component : InvoiceCreate,
+        name : 'Create Invoice',
         meta : {
             requiresAuth : true
         }
