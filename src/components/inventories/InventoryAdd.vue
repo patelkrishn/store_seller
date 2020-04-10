@@ -1,20 +1,6 @@
 <template>
 
   <v-container>
-    <v-snackbar
-        v-model="snackbar.value"
-        top right=""
-        :color="snackbar.color"
-      >
-        {{snackbar.data}}
-        <v-btn
-          color="white"
-          text
-          @click="snackbar.value = false"
-        >
-          Close
-        </v-btn>
-      </v-snackbar>
     <v-form ref="form">
       <template v-if="getProducts.length == 0">
         <v-data-table
@@ -130,11 +116,6 @@ export default {
   name: "InventoryAdd",
   data() {
     return {
-      snackbar : {
-        value : false,
-        color : null,
-        data : null
-      },
       isEditing: false,
       search : '',
       model: null,
@@ -162,41 +143,30 @@ export default {
   },
   methods: {
     fetchRemoteProduct() {
-      getAllProducts()
-        .then((res) => {
-          this.$store.commit("products", res);
-        })
-        .catch((error) => {
-          this.$store.commit("errorMessage", { error });
-        });
+    this.$store.commit("loading",true);
+      getAllProducts();
     },
     submitInventory(){
       if (this.$refs.form.validate()) {
+        this.$store.commit("loading", true);
         let credentials={
           product_id : this.inventory.product.id,
           stock_quantity : this.inventory.stock_quantity,
           principle_amount : this.inventory.principle_amount
-        }
+        };
         addInventories(credentials)
             .then((res) => {
               // console.log(res);
+          this.$store.commit("loading", false);
               this.$store.commit("successMessage", res.data.message);
-              this.snackbar={
-                color:'success',
-                data:this.$store.state.success_message,
-                value: true
-              };
               this.$refs.form.reset();
+              this.fetchRemoteProduct();
             })
             .catch((error) => {
               if (error.response) {
+            this.$store.commit("loading", false);
                 console.log(error.response);
                 this.$store.commit("errorMessage", error.response.message);
-                this.snackbar={
-                  color:'danger',
-                  data:this.$store.state.error_message,
-                  value: true
-                };
                 this.$refs.form.reset();
               }
             });
@@ -208,7 +178,7 @@ export default {
       return this.$store.getters.products;
     },
   },
-  created() {
+  created:()=> {
     this.fetchRemoteProduct();
   },
 };

@@ -6,55 +6,58 @@ import store from '../store'
 const api_url= store.state.apiUrl;
 
 export function getAllProducts() {
-    return new Promise((res, rej) =>{
-        axios.get(api_url+'/product?token='+store.state.currentUser.token)
-            .then((response)=>{
-                res(response.data);
-            })
-            .catch((err)=>{
-                rej(err);
-            })
+    return axios.get(api_url+'/product?token='+store.state.currentUser.token)
+    .then((response)=>{
+        // console.log(response);
+        store.state.loading = false;
+        store.state.products = response.data
+    })
+    .catch((err)=>{
+        store.state.loading = false;
+        store.state.error_message = err
     })
     
 }
 
-export function addProduct(credentials) {
-    // console.log(credentials);
-    return new Promise((res, rej) =>{
-        axios.post(api_url+'/product?token='+store.state.currentUser.token, credentials)
+export function addProduct() {
+    let credentials=store.state.addProduct;
+    // console.log();
+    return axios.post(api_url+'/product?token='+store.state.currentUser.token, credentials)
             .then((response)=>{
-                res(response);
+                store.state.success_message = response;
+                store.state.loading = false;
             })
             .catch((err)=>{
-                rej(err);
+                store.state.error_message = err
             })
-    })
+    
     
 }
 
-export function updateProduct(credentials) {
-    // console.log(credentials);
-    return new Promise((res, rej) =>{
-        axios.put(api_url+'/product/'+credentials.id+'?token='+store.state.currentUser.token,credentials)
-            .then((response)=>{
-                res(response);
-            })
-            .catch((err)=>{
-                rej(err);
-            })
+export function updateProduct() {
+    let credentials=store.state.addProduct;
+    axios.put(api_url+'/product/'+credentials.id+'?token='+store.state.currentUser.token,credentials)
+    .then((response)=>{
+        store.state.success_message = response;
+        store.state.loading = false;
+    })
+    .catch((err)=>{
+        store.state.error_message = err
     })
     
 }
 
 export function deleteProduct(credentials) {
-    // console.log(credentials);
+    store.state.loading = true;
     return new Promise((res, rej) =>{
         axios.delete(api_url+'/product/'+credentials+'?token='+store.state.currentUser.token)
             .then((response)=>{
                 res(response);
+                store.state.loading = false;
             })
             .catch((err)=>{
                 rej(err);
+                store.state.loading = false;
             })
     })
     

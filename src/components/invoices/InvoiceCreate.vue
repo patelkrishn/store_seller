@@ -1,13 +1,27 @@
 <template>
-  <div></div>
+  <div>
+    <v-container>
+        
+    </v-container>
+  </div>
 </template>
 
 <script>
 export default {
-    name : 'InvoiceCreate'
-}
+  name: "InvoiceCreate",
+  data() {
+    return {};
+  },
+  methods: {},
+  computed: {
+    getProducts() {
+      return this.$store.state.products;
+    },
+  },
+  created() {
+    this.fetchRemoteProduct();
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

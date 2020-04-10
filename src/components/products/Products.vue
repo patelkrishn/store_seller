@@ -22,7 +22,7 @@
                     single-line
                     hide-details>
                 </v-text-field>
-              <v-btn color="primary" dark class="mb-2 ml-5" v-on="on">Add New</v-btn>
+              <v-btn color="primary" dark class="mb-2 ml-5">Add New</v-btn>
             </v-toolbar>
           </template>
         </v-data-table>
@@ -41,7 +41,6 @@
               <v-divider class="mx-4" inset vertical></v-divider>
               <v-spacer></v-spacer>
               <v-text-field
-              full-width=true
               dense=""
                     v-model="search"
                     append-icon="mdi-magnify"
@@ -77,14 +76,6 @@
                             <v-text-field
                               v-model="editedItem.product_sku"
                               label="Product SKU"
-                              :rules="[validationRules.required]"
-                              outlined
-                            ></v-text-field>
-                          </v-col>
-                          <v-col cols="12" sm="6" md="6">
-                            <v-text-field
-                              v-model="editedItem.product_stock_quantity"
-                              label="Product stock"
                               :rules="[validationRules.required]"
                               outlined
                             ></v-text-field>
@@ -160,30 +151,23 @@ export default {
       editedItem: {
         product_name: null,
         product_sku: "",
-        product_stock_quantity: 0,
         product_price: 0,
       },
       defaultItem: {
         product_name: "",
         product_sku: "",
-        product_stock_quantity: 0,
         product_price: 0,
       },
     };
   },
   methods: {
     fetchRemoteProduct() {
-      getAllProducts()
-        .then((res) => {
-          this.$store.commit("products", res);
-        })
-        .catch((error) => {
-          this.$store.commit("errorMessage", { error });
-        });
+    this.$store.commit("loading",true);
+      getAllProducts();
     },
     close() {
       this.dialog = false;
-      this.$refs.form.reset();
+      this.$refs.form.resetValidation()
       setTimeout(() => {
         this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1;
@@ -192,35 +176,30 @@ export default {
 
     save() {
       if (this.$refs.form.validate()) {
+        this.$store.state.loading = true;
+        this.$store.commit("addProduct", this.editedItem);
         if (this.editedIndex > -1) {
-          updateProduct(this.editedItem)
-            .then((res) => {
-              // console.log(res);
-              this.$store.commit("successMessage", res.data.message);
-              this.fetchRemoteProduct();
-              this.close();
-              this.$refs.form.reset();
-            })
-            .catch((error) => {
-              if (error.response) {
-                console.log(error.response);
-              }
-            });
+            updateProduct();
+            // console.log(this.getSuccess.status);
+            if(this.getSuccess.status == 200){
+              this.$store.commit("successMessage", 'Product update successfullt!');
+              this.$store.commit("loading", false);
+            }else{
+              this.$store.commit("errorMessage", 'Error while updating product!');
+              this.$store.commit("loading", false);
+            }
         } else {
-          // this.desserts.push(this.editedItem)
-          addProduct(this.editedItem)
-            .then((res) => {
-              // console.log(res);
-              this.$store.commit("successMessage", res.data.message);
-              this.fetchRemoteProduct();
-              this.close();
-            })
-            .catch((error) => {
-              if (error.response) {
-                console.log(error.response);
-              }
-            });
+          addProduct();
+            if(this.getSuccess.status == 200){
+              this.$store.commit("successMessage", this.getSuccess.data.message);
+              this.$store.state.loading = false;
+            }else{
+              this.$store.commit("errorMessage", 'Error adding product product!');
+              this.$store.commit("loading", false);
+            }
         }
+        setTimeout(()=>this.fetchRemoteProduct(),500);
+        this.close();
       }
     },
 
@@ -232,9 +211,9 @@ export default {
 
     deleteItem(item) {
       confirm("Are you sure you want to delete this item?") &&
+        this.$store.commit("loading", true);
         deleteProduct(item.id)
           .then((res) => {
-            console.log(res);
             this.$store.commit("successMessage", res.data.message);
             this.fetchRemoteProduct();
           })
@@ -244,6 +223,7 @@ export default {
               console.log(error.response);
             }
           });
+        this.$store.state.loading = false;
     },
   },
   computed: {
@@ -253,13 +233,15 @@ export default {
     formTitle() {
       return this.editedIndex === -1 ? "Add New Product" : "Edit Product";
     },
+    getSuccess(){
+        return this.$store.state.success_message;
+    }
   },
 
   watch: {
     dialog(val) {
       // console.log(val);
       val || this.close();
-      this.$refs.form.reset();
     },
   },
   created() {
