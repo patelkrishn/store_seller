@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h2>{{ welcome }}</h2>
+    <h1>{{ welcome }}</h1>
   </v-container>
 </template>
 

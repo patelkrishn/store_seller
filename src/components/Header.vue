@@ -1,7 +1,10 @@
 <template>
   <nav v-if="currentUser">
     <v-app-bar app class="cyan accent-4" flat dense>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="white--text"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon
+        @click.stop="drawer = !drawer"
+        class="white--text"
+      ></v-app-bar-nav-icon>
       <v-toolbar-title class="text-uppercase white--text">
         <!-- <span class="font-weight-light">Store </span> -->
         <span>{{ this.$router.app._route.name }}</span>
@@ -10,14 +13,15 @@
 
       <!-- <v-toolbar-items class="hidden-sm-and-down"> -->
       <v-toolbar-items>
-        <v-btn v-if="this.$store.state.currentUser.is_verified == 0" text style="color:#ff0000">
+        <v-btn
+          v-if="this.$store.state.currentUser.is_verified == 0"
+          text
+          style="color: #ff0000;"
+        >
           <span>Unverified!</span>
           <v-icon right>warning</v-icon>
         </v-btn>
-        <v-btn text class="white--text">
-          <span>{{ currentUser.name }}</span>
-          <v-icon right>account_box</v-icon>
-        </v-btn>
+        <UserDetailsDialog></UserDetailsDialog>
       </v-toolbar-items>
     </v-app-bar>
 
@@ -85,15 +89,22 @@
           <v-list-item-title>Create Invoice</v-list-item-title>
         </v-list-item>
       </v-list>
-      <template v-slot:append >
+      <template v-slot:append>
         <div class="pa-2">
-          <v-btn 
-          block 
-          outlined 
-          class="red accent-4  white--text" 
-          @click.prevent="logout">
-            Logout 
-          <v-icon right>exit_to_app</v-icon>
+          <v-btn block depressed>
+            Setting
+            <v-icon right>settings</v-icon>
+          </v-btn>
+        </div>
+        <div class="pa-2">
+          <v-btn
+            block
+            outlined
+            class="red accent-4 white--text"
+            @click.prevent="logout"
+          >
+            Logout
+            <v-icon right>exit_to_app</v-icon>
           </v-btn>
         </div>
       </template>
@@ -102,9 +113,13 @@
 </template>
 <script>
 import { userLogout } from "../helpers/auth";
+import UserDetailsDialog from './helpers/UserDetailsDialog'
 
 export default {
   name: "Header",
+  components : {
+    UserDetailsDialog
+  },
   data() {
     return {
       currentPath: this.$router.app.$router.app._route.path,
@@ -126,13 +141,13 @@ export default {
         this.$store.commit("successMessage", res.message);
         this.$router.push("/login");
       });
-    },
+    }
   },
   computed: {
     currentUser() {
       return this.$store.getters.currentUser;
     },
-  },
+  }
 };
 </script>
 
