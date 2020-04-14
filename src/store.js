@@ -1,8 +1,14 @@
 import {getLocalUser} from './helpers/auth';
+// import auth from './store/modules/auth'
+// import products from './store/modules/products'
 
 const user = getLocalUser();
 
 export default {
+    modules:{
+        // auth,
+        // products
+    },
     state: {
         // apiUrl : 'http://localhost:5758/api/seller',
         apiUrl : 'https://myhisab.store/cdn/api/seller',
@@ -99,6 +105,7 @@ export default {
     },
     actions: {
         login(context) {
+            // console.log(context);
             context.commit("login");
         }
     }
