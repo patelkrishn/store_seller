@@ -14,7 +14,6 @@
     <Header />
     <v-content>
       <router-view></router-view>
-      {{auth}}
     </v-content>
 
     <v-layout align-center justify-space-around wrap>
@@ -48,7 +47,7 @@
 
 <script>
 import Header from "./components/Header";
-import {mapState} from 'vuex'
+// import {mapState} from 'vuex'
 
 export default {
   name: "App",
@@ -67,7 +66,7 @@ export default {
     getLoading(){
       return this.$store.state.loading;
     },
-    ...mapState('auth',['mode'])
+    // ...mapState('auth',['mode'])
   },
   created() {
     // console.log(auth);

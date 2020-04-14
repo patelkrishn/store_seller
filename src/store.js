@@ -11,7 +11,7 @@ export default {
     },
     state: {
         // apiUrl : 'http://localhost:5758/api/seller',
-        apiUrl : 'https://myhisab.store/cdn/api/seller',
+        apiUrl : 'https://api.asatine.store/api/seller',
         currentUser: user,
         isLoggedIn: !! user,
         loading: false,
