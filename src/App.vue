@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import Header from "./components/Header";
+import Header from "./views/Header";
 // import {mapState} from 'vuex'
 
 export default {

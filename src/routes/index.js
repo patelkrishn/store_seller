@@ -1,11 +1,11 @@
-import Home from './components/Home';
-import Login from './components/auth/Login';
-import Register from './components/auth/Register';
-import Products from './components/products/Products';
-import Inventories from './components/inventories/Inventories';
-import InventoryAdd from './components/inventories/InventoryAdd';
-import InventoryReport from './components/inventories/InventoryReport';
-import InvoiceCreate from './components/invoices/InvoiceCreate';
+import Home from '../views/Home';
+import Login from '../views/auth/Login';
+import Register from '../views/auth/Register';
+import Products from './../views/products/Products';
+import Inventories from '../views/inventories/Inventories';
+import InventoryAdd from '../views/inventories/InventoryAdd';
+import InventoryReport from '../views/inventories/InventoryReport';
+import InvoiceCreate from '../views/invoices/InvoiceCreate';
 
 export const routes = [
     {

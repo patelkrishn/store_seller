@@ -1,7 +1,7 @@
 const state = {
   mode: "dev",
-  prod_api_url: "http://localhost:5758/api/seller",
-  dev_api_url: "https://myhisab.store/cdn/api/seller",
+  dev_api_url: "http://localhost:5758/api/seller",
+  prod_api_url: "https://api.asatine.store/api/seller",
   token: null,
 };
 
@@ -33,7 +33,7 @@ const mutations = {
 };
 
 export default {
-    namespace:true,
+  namespace:true,
   state,
   getters,
   actions,

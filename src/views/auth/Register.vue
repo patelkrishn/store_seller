@@ -1,6 +1,6 @@
 <template>
-    <div id="app">
-  <v-app id="inspire">
+<div>
+  <v-app>
     <v-content>
       <v-container
         fluid
@@ -21,18 +21,34 @@
                 dark
                 flat
               >
-                <v-toolbar-title>Dashboard Login</v-toolbar-title>
+                <v-toolbar-title>Dashboard Registration</v-toolbar-title>
                 <v-spacer></v-spacer>
               </v-toolbar>
               <v-card-text>
                 <v-form>
+
+                  <v-text-field
+                    label="Name"
+                    name="name"
+                    prepend-icon="person"
+                    type="text"
+                v-model="form.name"
+                  ></v-text-field>
+
+                  <v-text-field
+                    label="Mobile"
+                    name="mobile"
+                    prepend-icon="person"
+                    type="text"
+                v-model="form.mobile"
+                  ></v-text-field>
+
                   <v-text-field
                     label="Login"
                     name="login"
                     prepend-icon="person"
-                    type="email"
+                    type="text"
                     v-model="form.email"
-                    outlined
                   ></v-text-field>
 
                   <v-text-field
@@ -42,14 +58,13 @@
                     prepend-icon="lock"
                     type="password"
                     v-model="form.password"
-                    outlined
                   ></v-text-field>
                 </v-form>
               </v-card-text>
               <v-card-actions>
-                <v-btn color="orange" to="/register">Register</v-btn>
+                <v-btn color="orange" to="/login">Login</v-btn>
                 <v-spacer></v-spacer>
-                <v-btn color="primary" @click="authenticate">Login</v-btn>
+                <v-btn color="primary" @click="authenticate">Register</v-btn>
               </v-card-actions>
               <div class="form-group" v-if="authError">
                 <p class="red lighten-4 red--text">{{authError}}</p>
@@ -61,33 +76,36 @@
     </v-content>
   </v-app>
 </div>
+
 </template>
 
 <script>
-import {userLogin} from '../../helpers/auth'
+import { userRegistration } from "../../helpers/auth";
 
 export default {
-name: 'login',
-data() {
+  name: "Register",
+  data() {
     return {
-        form: {
-            email : '',
-            password : ''
-        },
-        error : ''
+      form: {
+        name: "",
+        email: "",
+        mobile: "",
+        password: "",
+      },
+      error: "",
     };
-},
-methods: {
+  },
+  methods: {
     authenticate() {
-        this.$store.dispatch('login');
-        userLogin(this.form)
-        .then((res)=>{
-            this.$store.commit('loginSuccess',res);
-            this.$store.commit('successMessage','You successfully logged in.');
-            this.$router.push({path:'/'});
+      this.$store.dispatch("login");
+      userRegistration(this.form)
+        .then((res) => {
+          this.$store.commit("loginSuccess", res);
+          this.$store.commit("successMessage","Your registration is successfully.");
+          this.$router.push({ path: "/" });
         })
-        .catch((error)=>{
-            if (error.response) {
+        .catch((error) => {
+          if (error.response) {
                     if(error.response.status == 401)
                     {
                         console.log(error.response.data.error);
@@ -96,17 +114,15 @@ methods: {
                         this.$store.commit('loginFailed',error.response.data.message);
                     }
                 }
-        })
-    }
-},
+        });
+    },
+  },
 computed : {
     authError(){
         return this.$store.getters.authError;
     }
 }
-}
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

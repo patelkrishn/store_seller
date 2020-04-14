@@ -113,7 +113,7 @@
 </template>
 <script>
 import { userLogout } from "../helpers/auth";
-import UserDetailsDialog from './helpers/UserDetailsDialog'
+import UserDetailsDialog from '../components/headers/UserDetailsDialog'
 
 export default {
   name: "Header",

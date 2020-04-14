@@ -10,8 +10,8 @@ export default {
         // products
     },
     state: {
-        // apiUrl : 'http://localhost:5758/api/seller',
-        apiUrl : 'https://api.asatine.store/api/seller',
+        apiUrl : 'http://localhost:5758/api/seller',
+        // apiUrl : 'https://api.asatine.store/api/seller',
         currentUser: user,
         isLoggedIn: !! user,
         loading: false,

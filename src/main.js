@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
 import App from './App.vue'
-import {routes} from './routes'
+import {routes} from './routes/index'
 import StoreData from './store'
 import axios from 'axios'
 import vuetify from './plugins/vuetify';
