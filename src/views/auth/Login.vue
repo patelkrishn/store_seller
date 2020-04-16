@@ -64,7 +64,8 @@
 </template>
 
 <script>
-import {userLogin} from '../../helpers/auth'
+
+import { mapActions } from 'vuex'
 
 export default {
 name: 'login',
@@ -78,25 +79,10 @@ data() {
     };
 },
 methods: {
+  ...mapActions(['userLogin']),
     authenticate() {
-        this.$store.dispatch('login');
-        userLogin(this.form)
-        .then((res)=>{
-            this.$store.commit('loginSuccess',res);
-            this.$store.commit('successMessage','You successfully logged in.');
-            this.$router.push({path:'/'});
-        })
-        .catch((error)=>{
-            if (error.response) {
-                    if(error.response.status == 401)
-                    {
-                        console.log(error.response.data.error);
-                        this.$store.commit('loginFailed',error.response.data.message);
-                    }else{
-                        this.$store.commit('loginFailed',error.response.data.message);
-                    }
-                }
-        })
+        this.userLogin(this.form);
+        // this.$router.push('/')
     }
 },
 computed : {

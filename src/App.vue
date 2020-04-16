@@ -1,12 +1,12 @@
 <template>
   <v-app>
     <v-snackbar
-      v-model="getSnackbar.value"
+      :value="snackbar.value"
       top
       right=""
-      :color="getSnackbar.color"
+      :color="snackbar.color"
     >
-      {{ getSnackbar.data }}
+      {{ snackbar.data }}
       <v-btn color="white" text @click="hideSnackbar">
         Close
       </v-btn>
@@ -17,7 +17,7 @@
     </v-content>
 
     <v-layout align-center justify-space-around wrap>
-      <v-dialog v-model="getLoading" hide-overlay persistent width="300">
+      <v-dialog v-model="loading" hide-overlay persistent width="300">
         <v-card color="primary" dark>
           <v-card-text>
             Please stand by
@@ -47,29 +47,28 @@
 
 <script>
 import Header from "./views/Header";
-// import {mapState} from 'vuex'
+// import { createNamespacedHelpers } from 'vuex'
+// const { mapState,mapMutations,mapGetters } = createNamespacedHelpers('alert')
+import {mapActions,mapGetters} from 'vuex'
 
 export default {
   name: "App",
+  data(){
+    return {
+    };
+  },
   components: {
     Header,
   },
   methods:{
     hideSnackbar(){
-      this.$store.commit('snackbar',{data:null,value:false,color:null});
-    }
-  },
-  computed:{
-    getSnackbar(){
-      return this.$store.state.snackbar;
+      this.setSnackbar({data:null,value:false,color:null});
     },
-    getLoading(){
-      return this.$store.state.loading;
-    },
-    // ...mapState('auth',['mode'])
+    ...mapActions(['setSnackbar'])
   },
-  created() {
-    // console.log(auth);
+  computed: mapGetters(["loading","snackbar"]),
+  created(){
+    // console.log(mapGetters(['loading']));
   }
 };
 </script>

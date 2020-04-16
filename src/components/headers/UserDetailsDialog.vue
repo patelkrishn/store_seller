@@ -89,6 +89,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
   name: "UserDetailsDialog",
   data() {
@@ -107,11 +108,9 @@ export default {
       }
     },
   },
-  computed: {
-    currentUser() {
-      return this.$store.getters.currentUser;
-    },
-  },
+  computed: mapState({
+    currentUser:state=>state.auth.currentUser
+  }),
   watch: {
     steps(val) {
       if (this.e1 > val) {

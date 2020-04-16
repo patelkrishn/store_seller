@@ -14,7 +14,7 @@
       <!-- <v-toolbar-items class="hidden-sm-and-down"> -->
       <v-toolbar-items>
         <v-btn
-          v-if="this.$store.state.currentUser.is_verified == 0"
+          v-if="currentUser.is_verified == 0"
           text
           style="color: #ff0000;"
         >
@@ -101,7 +101,7 @@
             block
             outlined
             class="red accent-4 white--text"
-            @click.prevent="logout"
+            @click.prevent="userLogout"
           >
             Logout
             <v-icon right>exit_to_app</v-icon>
@@ -112,8 +112,8 @@
   </nav>
 </template>
 <script>
-import { userLogout } from "../helpers/auth";
 import UserDetailsDialog from '../components/headers/UserDetailsDialog'
+import {mapState, mapActions} from 'vuex'
 
 export default {
   name: "Header",
@@ -134,20 +134,11 @@ export default {
     };
   },
   methods: {
-    logout() {
-      this.$store.commit("loading", true);
-      userLogout().then((res) => {
-        this.$store.commit("logout");
-        this.$store.commit("successMessage", res.message);
-        this.$router.push("/login");
-      });
-    }
+  ...mapActions(['userLogin','userLogout']),
   },
-  computed: {
-    currentUser() {
-      return this.$store.getters.currentUser;
-    },
-  }
+  computed: mapState({
+    currentUser:state=>state.auth.currentUser
+  }),
 };
 </script>
 
