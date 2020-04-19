@@ -44,8 +44,8 @@
                   ></v-text-field>
 
                   <v-text-field
-                    label="Login"
-                    name="login"
+                    label="Email"
+                    name="email"
                     prepend-icon="person"
                     type="text"
                     v-model="form.email"
@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import { userRegistration } from "../../helpers/auth";
+import { mapActions } from 'vuex'
 
 export default {
   name: "Register",
@@ -96,25 +96,9 @@ export default {
     };
   },
   methods: {
+  ...mapActions(['userRegistration']),
     authenticate() {
-      this.$store.dispatch("login");
-      userRegistration(this.form)
-        .then((res) => {
-          this.$store.commit("loginSuccess", res);
-          this.$store.commit("successMessage","Your registration is successfully.");
-          this.$router.push({ path: "/" });
-        })
-        .catch((error) => {
-          if (error.response) {
-                    if(error.response.status == 401)
-                    {
-                        console.log(error.response.data.error);
-                        this.$store.commit('loginFailed',error.response.data.message);
-                    }else{
-                        this.$store.commit('loginFailed',error.response.data.message);
-                    }
-                }
-        });
+      this.userRegistration(this.form);
     },
   },
 computed : {

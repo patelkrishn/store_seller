@@ -134,11 +134,15 @@ export default {
     };
   },
   methods: {
-  ...mapActions(['userLogin','userLogout']),
+  ...mapActions(['userLogin','userLogout','fetchShopAddress','fetchLegalInformation']),
   },
   computed: mapState({
     currentUser:state=>state.auth.currentUser
   }),
+  created(){
+    // this.fetchShopAddress();
+    // this.fetchLegalInformation();
+  }
 };
 </script>
 

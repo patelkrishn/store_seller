@@ -27,8 +27,8 @@
               <v-card-text>
                 <v-form>
                   <v-text-field
-                    label="Login"
-                    name="login"
+                    label="Email"
+                    name="email"
                     prepend-icon="person"
                     type="email"
                     v-model="form.email"
@@ -82,7 +82,6 @@ methods: {
   ...mapActions(['userLogin']),
     authenticate() {
         this.userLogin(this.form);
-        // this.$router.push('/')
     }
 },
 computed : {
