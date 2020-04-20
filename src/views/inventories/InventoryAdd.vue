@@ -2,35 +2,9 @@
 
   <v-container>
     <v-form ref="form">
-      <template v-if="getProducts.length == 0">
-        <v-data-table
-          item-key="name"
-          :headers="headers"
-          class="elevation-1"
-          loading
-          loading-text="Loading... Please wait"
-        >
-        <template v-slot:top>
-            <v-toolbar flat color="white">
-              <v-toolbar-title>Products</v-toolbar-title>
-              <v-divider class="mx-4" inset vertical></v-divider>
-              <v-spacer></v-spacer>
-              <v-text-field
-                    dense=""
-                    v-model="search"
-                    append-icon="mdi-magnify"
-                    label="Search"
-                    single-line
-                    hide-details>
-                </v-text-field>
-            </v-toolbar>
-          </template>
-        </v-data-table>
-      </template>
-      <template v-else>
       <v-data-table
             :headers="headers"
-            :items="getProducts"
+            :items="getAllProducts"
             sort-by="calories"
             class="elevation-1"
         >
@@ -56,7 +30,6 @@
                       >
           </template>
         </v-data-table>
-      </template>
     <v-card 
       class="pt-5 pl-5 pr-5 mt-5"
       outlined> 
@@ -110,8 +83,7 @@
 </template>
 
 <script>
-import { getAllProducts } from "../../api/Products";
-import { addInventories } from "../../api/inventories";
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: "InventoryAdd",
   data() {
@@ -142,44 +114,27 @@ export default {
     };
   },
   methods: {
-    fetchRemoteProduct() {
-    this.$store.commit("loading",true);
-      getAllProducts();
-    },
+    ...mapActions(['fetchAllProducts','insertInventory']),
     submitInventory(){
       if (this.$refs.form.validate()) {
-        this.$store.commit("loading", true);
         let credentials={
           product_id : this.inventory.product.id,
           stock_quantity : this.inventory.stock_quantity,
           principle_amount : this.inventory.principle_amount
         };
-        addInventories(credentials)
-            .then((res) => {
-              // console.log(res);
-          this.$store.commit("loading", false);
-              this.$store.commit("successMessage", res.data.message);
-              this.$refs.form.reset();
-              this.fetchRemoteProduct();
-            })
-            .catch((error) => {
-              if (error.response) {
-            this.$store.commit("loading", false);
-                console.log(error.response);
-                this.$store.commit("errorMessage", error.response.message);
-                this.$refs.form.reset();
-              }
-            });
+        this.insertInventory(credentials);
+        this.$refs.form.reset();
+        this.$refs.form.resetValidation()
+        this.fetchAllProducts()
+        // setTimeout(()=>this.fetchAllProducts(),500);
       }
     }
   },
   computed: {
-    getProducts() {
-      return this.$store.getters.products;
-    },
+    ...mapGetters(['getAllProducts'])
   },
-  created:()=> {
-    this.fetchRemoteProduct();
+  created(){
+    this.fetchAllProducts();
   },
 };
 </script>

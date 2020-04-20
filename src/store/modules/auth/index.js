@@ -80,6 +80,7 @@ const actions = {
         if (error.response) {
           if (error.response.status == 401) {
             context.dispatch("setErrorMessage", error.response.data.message);
+            console.log(error.response);
             context.commit("loginFailed");
           } else {
             context.dispatch(
@@ -212,6 +213,7 @@ const actions = {
           })
           .catch((error)=>{
             if (error.response) {
+              console.log(error.response);
               if (error.response.status == 401) {
                 context.dispatch("setErrorMessage", error.response.statusText);
                 localStorage.removeItem("user");
@@ -267,6 +269,9 @@ const actions = {
             }
           })
   },
+  async setCurrentUser(context,payload){
+    context.commit("setCurrentUser",payload);
+  }
 };
 
 const mutations = {

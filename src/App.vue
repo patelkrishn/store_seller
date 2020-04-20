@@ -47,8 +47,6 @@
 
 <script>
 import Header from "./views/Header";
-// import { createNamespacedHelpers } from 'vuex'
-// const { mapState,mapMutations,mapGetters } = createNamespacedHelpers('alert')
 import {mapActions,mapGetters} from 'vuex'
 
 export default {

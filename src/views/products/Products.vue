@@ -1,10 +1,11 @@
 <template>
   <v-container>
     <v-card class="mx-auto mt-5">
-      <template v-if="getProducts.length == 0">
+      <!-- <template v-if="getAllProducts.length == 0">
         <v-data-table
           item-key="name"
           :headers="headers"
+          :items="getAllProducts"
           class="elevation-1"
           loading
           loading-text="Loading... Please wait"
@@ -26,12 +27,12 @@
             </v-toolbar>
           </template>
         </v-data-table>
-      </template>
-      <template v-else>
+      </template> -->
+      <template>
         <v-data-table
             :headers="headers"
             :search="search"
-            :items="getProducts"
+            :items="getAllProducts"
             sort-by="calories"
             class="elevation-1"
         >
@@ -117,13 +118,9 @@
     </v-card>
   </v-container>
 </template>
-
 <script>
+import { mapActions,mapGetters } from 'vuex'
 import {
-  getAllProducts,
-  addProduct,
-  deleteProduct,
-  updateProduct,
 } from "../../api/Products";
 export default {
   name: "Products",
@@ -161,9 +158,9 @@ export default {
     };
   },
   methods: {
+    ...mapActions(['fetchAllProducts','setLoading','updateProduct','insertProduct','deleteProduct']),
     fetchRemoteProduct() {
-    this.$store.commit("loading",true);
-      getAllProducts();
+      this.fetchAllProducts();
     },
     close() {
       this.dialog = false;
@@ -176,27 +173,10 @@ export default {
 
     save() {
       if (this.$refs.form.validate()) {
-        this.$store.state.loading = true;
-        this.$store.commit("addProduct", this.editedItem);
         if (this.editedIndex > -1) {
-            updateProduct();
-            // console.log(this.getSuccess.status);
-            if(this.getSuccess.status == 200){
-              this.$store.commit("successMessage", 'Product update successfullt!');
-              this.$store.commit("loading", false);
-            }else{
-              this.$store.commit("errorMessage", 'Error while updating product!');
-              this.$store.commit("loading", false);
-            }
+            this.updateProduct(this.editedItem);
         } else {
-          addProduct();
-            if(this.getSuccess.status == 200){
-              this.$store.commit("successMessage", this.getSuccess.data.message);
-              this.$store.state.loading = false;
-            }else{
-              this.$store.commit("errorMessage", 'Error adding product product!');
-              this.$store.commit("loading", false);
-            }
+          this.insertProduct(this.editedItem);
         }
         setTimeout(()=>this.fetchRemoteProduct(),500);
         this.close();
@@ -204,26 +184,15 @@ export default {
     },
 
     editItem(item) {
-      this.editedIndex = this.getProducts.indexOf(item);
+      this.editedIndex = this.getAllProducts.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
 
     deleteItem(item) {
       confirm("Are you sure you want to delete this item?") &&
-        this.$store.commit("loading", true);
-        deleteProduct(item.id)
-          .then((res) => {
-            this.$store.commit("successMessage", res.data.message);
-            this.fetchRemoteProduct();
-          })
-          .catch((error) => {
-            console.log(error);
-            if (error.response) {
-              console.log(error.response);
-            }
-          });
-        this.$store.state.loading = false;
+        this.deleteProduct(item.id);
+        setTimeout(()=>this.fetchRemoteProduct(),500);
     },
   },
   computed: {
@@ -233,14 +202,11 @@ export default {
     formTitle() {
       return this.editedIndex === -1 ? "Add New Product" : "Edit Product";
     },
-    getSuccess(){
-        return this.$store.state.success_message;
-    }
+    ...mapGetters(["getAllProducts"])
   },
 
   watch: {
     dialog(val) {
-      // console.log(val);
       val || this.close();
     },
   },
