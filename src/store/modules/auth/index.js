@@ -30,7 +30,8 @@ const getters = {
       user=state.currentUser;
       headers={
         headers:{
-          'Authorization': 'Bearer '+state.currentUser.token
+          'Authorization': 'Bearer '+state.currentUser.token,
+          'Accept': 'application/json'
         }
       }
     }
