@@ -88,6 +88,19 @@
 
           <v-list-item-title>Create Invoice</v-list-item-title>
         </v-list-item>
+        <v-list-group prepend-icon="view_agenda">
+          <template v-slot:activator>
+            <v-list-item-title>Invoice</v-list-item-title>
+          </template>
+
+          <v-list-item link router to="/all-invoices">
+            <v-list-item-title>All Invoices</v-list-item-title>
+            <v-list-item-icon>
+              <v-icon>view_list</v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+
+        </v-list-group>
       </v-list>
       <template v-slot:append>
         <div class="pa-2">

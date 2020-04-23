@@ -5,6 +5,7 @@
             :items="getAllInventories"
             sort-by="calories"
             class="elevation-1"
+            :search="search"
         >
           <template v-slot:top>
             <v-toolbar flat color="white">
@@ -22,10 +23,14 @@
               
             </v-toolbar>
           </template>
+          <template v-slot:item.created_at="{ item }">
+            {{item.created_at}}
+          </template>
           <template v-slot:item.actions="{  }">
-              <v-btn color="blue darken-1" outlined="" text 
-                        >Select this</v-btn
-                      >
+            <v-icon small class="mr-2"
+              >mdi-pencil</v-icon
+            >
+            <v-icon small>mdi-delete</v-icon>
           </template>
         </v-data-table>
   </v-container>
@@ -37,6 +42,7 @@ export default {
     name:'Inventories',
     data(){
       return {
+      search: '',
         headers: [
         {
           text: "Product Name",

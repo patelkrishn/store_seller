@@ -4,6 +4,7 @@ import auth from './modules/auth/'
 import alert from './modules/alert/'
 import products from './modules/products/'
 import inventories from './modules/inventories/'
+import invoices from './modules/invoices/'
 
 Vue.use(Vuex);
 
@@ -13,7 +14,8 @@ export default new Vuex.Store({
       auth,
       alert,
       products,
-      inventories
+      inventories,
+      invoices
   },
 });
 

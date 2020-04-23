@@ -1,33 +1,6 @@
 <template>
   <v-container>
     <v-card class="mx-auto mt-5">
-      <!-- <template v-if="getAllProducts.length == 0">
-        <v-data-table
-          item-key="name"
-          :headers="headers"
-          :items="getAllProducts"
-          class="elevation-1"
-          loading
-          loading-text="Loading... Please wait"
-        >
-        <template v-slot:top>
-            <v-toolbar flat color="white">
-              <v-toolbar-title>Products</v-toolbar-title>
-              <v-divider class="mx-4" inset vertical></v-divider>
-              <v-spacer></v-spacer>
-                <v-text-field
-                    dense=""
-                    v-model="search"
-                    append-icon="mdi-magnify"
-                    label="Search"
-                    single-line
-                    hide-details>
-                </v-text-field>
-              <v-btn color="primary" dark class="mb-2 ml-5">Add New</v-btn>
-            </v-toolbar>
-          </template>
-        </v-data-table>
-      </template> -->
       <template>
         <v-data-table
             :headers="headers"
