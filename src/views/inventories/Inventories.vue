@@ -23,8 +23,12 @@
               
             </v-toolbar>
           </template>
+          
           <template v-slot:item.created_at="{ item }">
-            {{item.created_at}}
+              <span>{{new Date(item.created_at).toLocaleString()}}</span>
+          </template>
+          <template v-slot:item.updated_at="{ item }">
+              <span>{{new Date(item.updated_at).toLocaleString()}}</span>
           </template>
           <template v-slot:item.actions="{  }">
             <v-icon small class="mr-2"

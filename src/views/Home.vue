@@ -1,16 +1,37 @@
 <template>
   <v-container>
-    <h1>{{ welcome }}</h1>
+    <GChart
+    type="ColumnChart"
+    :data="getMainChart"
+    :options="chartOptions"
+  />
   </v-container>
 </template>
 
 <script>
+import { mapActions,mapGetters } from 'vuex'
 export default {
   name: 'Home',
-  computed : {
-    welcome() {
-      return 'Welcome to dashboard';
+  data () {
+    return {
+      // Array will be automatically processed with visualization.arrayToDataTable function
+      chartData: [],
+      chartOptions: {
+        chart: {
+          title: 'Store Performance',
+          subtitle: 'Last 24 hour sales',
+        }
+      }
     }
+  },
+  methods:{
+    ...mapActions(['fetchMainChart'])
+  },
+  computed:{
+    ...mapGetters(['getMainChart'])
+  },
+  created(){
+    this.fetchMainChart()
   }
 }
 </script>

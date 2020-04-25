@@ -2,7 +2,7 @@
   <v-dialog v-model="dialog" persistent max-width="800px">
     <template v-slot:activator="{ on }">
       <v-btn text class="white--text hidden-sm-and-down" v-on="on">
-        <!-- <span>{{ currentUser.name }}</span> -->
+        <!-- <span>{{ getCurrentUser.name }}</span> -->
         <v-icon right>account_box</v-icon>
       </v-btn>
     </template>
@@ -54,7 +54,7 @@
                       </v-col>
                       <v-col cols="8">
                         <v-chip label="" style="text-transform: uppercase">{{
-                          currentUser.name
+                          getCurrentUser.name
                         }}</v-chip>
                       </v-col>
                     </v-row>
@@ -63,7 +63,7 @@
                         <span>Email: </span>
                       </v-col>
                       <v-col cols="8">
-                        <v-chip label="">{{ currentUser.email }}</v-chip>
+                        <v-chip label="">{{ getCurrentUser.email }}</v-chip>
                       </v-col>
                     </v-row>
                     <v-row>
@@ -71,7 +71,7 @@
                         <span>Mobile: </span>
                       </v-col>
                       <v-col cols="8">
-                        <v-chip label="">{{ currentUser.mobile }}</v-chip>
+                        <v-chip label="">{{ getCurrentUser.mobile }}</v-chip>
                       </v-col>
                     </v-row>
                   </v-col>
@@ -86,10 +86,10 @@
                       </v-col>
                       <v-col cols="8">
                         <v-chip
-                          v-if="shopAddress.shop_no != null"
+                          v-if="getShopAddress.shop_no != null"
                           label=""
                           style="text-transform: uppercase"
-                          >{{ shopAddress.shop_no }}</v-chip
+                          >{{ getShopAddress.shop_no }}</v-chip
                         >
                         <v-chip
                           v-else
@@ -105,10 +105,10 @@
                       </v-col>
                       <v-col cols="8">
                         <v-chip
-                          v-if="shopAddress.street != null"
+                          v-if="getShopAddress.street != null"
                           label=""
                           style="text-transform: uppercase"
-                          >{{ shopAddress.street }}</v-chip
+                          >{{ getShopAddress.street }}</v-chip
                         >
                         <v-chip
                           v-else
@@ -124,10 +124,10 @@
                       </v-col>
                       <v-col cols="8">
                         <v-chip
-                          v-if="shopAddress.landmark != null"
+                          v-if="getShopAddress.landmark != null"
                           label=""
                           style="text-transform: uppercase"
-                          >{{ shopAddress.landmark }}</v-chip
+                          >{{ getShopAddress.landmark }}</v-chip
                         >
                         <v-chip
                           v-else
@@ -145,10 +145,10 @@
                       </v-col>
                       <v-col cols="8">
                         <v-chip
-                          v-if="shopAddress.city != null"
+                          v-if="getShopAddress.city != null"
                           label=""
                           style="text-transform: uppercase"
-                          >{{ shopAddress.city }}</v-chip
+                          >{{ getShopAddress.city }}</v-chip
                         >
                         <v-chip
                           v-else
@@ -164,10 +164,10 @@
                       </v-col>
                       <v-col cols="8">
                         <v-chip
-                          v-if="shopAddress.state != null"
+                          v-if="getShopAddress.state != null"
                           label=""
                           style="text-transform: uppercase"
-                          >{{ shopAddress.state }}</v-chip
+                          >{{ getShopAddress.state }}</v-chip
                         >
                         <v-chip
                           v-else
@@ -183,10 +183,10 @@
                       </v-col>
                       <v-col cols="8">
                         <v-chip
-                          v-if="shopAddress.pincode != null"
+                          v-if="getShopAddress.pincode != null"
                           label=""
                           style="text-transform: uppercase"
-                          >{{ shopAddress.pincode }}</v-chip
+                          >{{ getShopAddress.pincode }}</v-chip
                         >
                         <v-chip
                           v-else
@@ -208,10 +208,10 @@
                       </v-col>
                       <v-col cols="8">
                         <v-chip
-                          v-if="legalInformation.shop_name != null"
+                          v-if="getLegalInformation.shop_name != null"
                           label=""
                           style="text-transform: uppercase"
-                          >{{ legalInformation.shop_name }}</v-chip
+                          >{{ getLegalInformation.shop_name }}</v-chip
                         >
                         <v-chip
                           v-else
@@ -229,10 +229,10 @@
                       </v-col>
                       <v-col cols="8">
                         <v-chip
-                          v-if="legalInformation.shop_pan != null"
+                          v-if="getLegalInformation.shop_pan != null"
                           label=""
                           style="text-transform: uppercase"
-                          >{{ legalInformation.shop_pan }}</v-chip
+                          >{{ getLegalInformation.shop_pan }}</v-chip
                         >
                         <v-chip
                           v-else
@@ -249,10 +249,10 @@
                       </v-col>
                       <v-col cols="8">
                         <v-chip
-                          v-if="legalInformation.shop_gstin != null"
+                          v-if="getLegalInformation.shop_gstin != null"
                           label=""
                           style="text-transform: uppercase"
-                          >{{ legalInformation.shop_gstin }}</v-chip
+                          >{{ getLegalInformation.shop_gstin }}</v-chip
                         >
                         <v-chip
                           v-else
@@ -314,7 +314,7 @@
                           <v-text-field
                             label="Your name"
                             type="text"
-                            v-model="currentUser.name"
+                            v-model="getCurrentUser.name"
                             :rules="[validationRules.required]"
                           ></v-text-field>
                         </v-col>
@@ -327,7 +327,7 @@
                           <v-text-field
                             label="Your email"
                             type="text"
-                            v-model="currentUser.email"
+                            v-model="getCurrentUser.email"
                             :rules="[validationRules.required]"
                           ></v-text-field>
                         </v-col>
@@ -340,7 +340,7 @@
                           <v-text-field
                             label="Your mobile"
                             type="text"
-                            v-model="currentUser.mobile"
+                            v-model="getCurrentUser.mobile"
                             :rules="[validationRules.required]"
                           ></v-text-field>
                         </v-col>
@@ -359,7 +359,7 @@
                           <v-text-field
                             label="Shop no."
                             type="text"
-                            v-model="shopAddress.shop_no"
+                            v-model="getShopAddress.shop_no"
                             :rules="[validationRules.required]"
                           ></v-text-field>
                         </v-col>
@@ -372,7 +372,7 @@
                           <v-text-field
                             label="Street"
                             type="text"
-                            v-model="shopAddress.street"
+                            v-model="getShopAddress.street"
                             :rules="[validationRules.required]"
                           ></v-text-field>
                         </v-col>
@@ -385,7 +385,7 @@
                           <v-text-field
                             label="Landmark"
                             type="text"
-                            v-model="shopAddress.landmark"
+                            v-model="getShopAddress.landmark"
                             :rules="[validationRules.required]"
                           ></v-text-field>
                         </v-col>
@@ -400,7 +400,7 @@
                           <v-text-field
                             label="City"
                             type="text"
-                            v-model="shopAddress.city"
+                            v-model="getShopAddress.city"
                             :rules="[validationRules.required]"
                           ></v-text-field>
                         </v-col>
@@ -413,7 +413,7 @@
                           <v-text-field
                             label="State"
                             type="text"
-                            v-model="shopAddress.state"
+                            v-model="getShopAddress.state"
                             :rules="[validationRules.required]"
                           ></v-text-field>
                         </v-col>
@@ -426,7 +426,7 @@
                           <v-text-field
                             label="Pincode"
                             type="text"
-                            v-model="shopAddress.pincode"
+                            v-model="getShopAddress.pincode"
                             :rules="[validationRules.required]"
                           ></v-text-field>
                         </v-col>
@@ -445,7 +445,7 @@
                           <v-text-field
                             label="Shop name"
                             type="text"
-                            v-model="legalInformation.shop_name"
+                            v-model="getLegalInformation.shop_name"
                             :rules="[validationRules.required]"
                           ></v-text-field>
                         </v-col>
@@ -459,7 +459,7 @@
                           <v-text-field
                             label="PAN No."
                             type="text"
-                            v-model="legalInformation.shop_pan"
+                            v-model="getLegalInformation.shop_pan"
                           ></v-text-field>
                         </v-col>
                       </v-row>
@@ -472,7 +472,7 @@
                           <v-text-field
                             label="GSTIN No."
                             type="text"
-                            v-model="legalInformation.shop_gstin"
+                            v-model="getLegalInformation.shop_gstin"
                           ></v-text-field>
                         </v-col>
                       </v-row>
@@ -511,7 +511,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import {  mapActions, mapGetters } from "vuex";
 export default {
   name: "UserDetailsDialog",
   data() {
@@ -549,20 +549,18 @@ export default {
         this.$refs.form[2].validate()
       ) {
           this.setLoading(true);
-          this.updateLegalInformation(this.legalInformation);
-          this.updateShopAddress(this.shopAddress);
-          this.updateSellerData(this.currentUser);
+          this.updateLegalInformation(this.getLegalInformation);
+          this.updateShopAddress(this.getShopAddress);
+          this.updateSellerData(this.getCurrentUser);
       }
       this.dialog = false;
       this.editData = false;
       this.e1 = 1;
     }
   },
-  computed: mapState({
-    currentUser: state => state.auth.currentUser,
-    shopAddress: state => state.auth.shop_address,
-    legalInformation: state => state.auth.legal_information
-  }),
+  computed:{
+    ...mapGetters(['getCurrentUser','getShopAddress','getLegalInformation'])
+  },
   watch: {
     steps(val) {
       if (this.e1 > val) {

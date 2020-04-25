@@ -5,6 +5,7 @@ import alert from './modules/alert/'
 import products from './modules/products/'
 import inventories from './modules/inventories/'
 import invoices from './modules/invoices/'
+import charts from './modules/charts/'
 
 Vue.use(Vuex);
 
@@ -15,7 +16,8 @@ export default new Vuex.Store({
       alert,
       products,
       inventories,
-      invoices
+      invoices,
+      charts,
   },
 });
 
