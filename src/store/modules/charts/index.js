@@ -18,7 +18,7 @@ const actions = {
           .get(context.getters.getAuth.api_url+'/charts',context.getters.getAuth.headers)
           .then((response)=>{
             context.dispatch("setLoading", false);
-            context.commit("setMainChart",response.data.charts);
+            context.commit("setMainChart",response.data);
           })
           .catch((error)=>{
             if (error.response) {
@@ -26,7 +26,6 @@ const actions = {
                 context.dispatch("setErrorMessage", error.response.statusText);
                 localStorage.removeItem("user");
                 context.dispatch("setCurrentUser", null);
-                context.dispatch("setLoading", false);
                 context.commit("userLogout");
                 router.push({ path: "/login" });
               } else {

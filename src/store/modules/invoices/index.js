@@ -54,7 +54,6 @@ const actions = {
                 context.dispatch("setErrorMessage", error.response.statusText);
                 localStorage.removeItem("user");
                 context.dispatch("setCurrentUser", null);
-                context.dispatch("setLoading", false);
                 context.commit("userLogout");
                 router.push({ path: "/login" });
               } else {
