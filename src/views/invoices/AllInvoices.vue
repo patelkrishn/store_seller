@@ -33,7 +33,7 @@
           </template>
           <v-card>
             <v-card-title>
-              <h3>{{item}}</h3>
+              <h3>#00{{invoice_name}}</h3>
             </v-card-title>
 
             <v-form ref="form">
@@ -110,6 +110,7 @@ export default {
     return {
       search: "",
       dialog: false,
+      invoice_name:'',
       headers: [
         {
           text: "Invoice Id",
@@ -127,6 +128,7 @@ export default {
     ...mapActions(["fetchAllInvoices", "fetchSingleInvoice"]),
     loadSingleInvoice(invoice_name) {
       this.fetchSingleInvoice(invoice_name);
+      this.invoice_name=invoice_name
     },
     close() {
       this.dialog = false;
