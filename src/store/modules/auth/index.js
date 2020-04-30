@@ -4,7 +4,7 @@ import axios from "axios";
 
 const user = getLocalUser();
 const state = {
-  mode: "prod",
+  mode: "dev",
   dev_api_url: "http://localhost:5758/api/seller",
   prod_api_url: "https://api.asatine.store/api/seller",
   currentUser: user,

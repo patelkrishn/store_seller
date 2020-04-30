@@ -26,7 +26,6 @@
         <v-dialog v-model="dialog" max-width="1300px">
           <template v-slot:activator="{ on }">
             <a
-              href="#"
               @click="loadSingleInvoice(item.invoice_name)"
               v-on="on"
             >#00{{item.invoice_name}}</a>

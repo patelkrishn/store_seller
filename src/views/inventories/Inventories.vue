@@ -56,7 +56,7 @@ export default {
         },
         { text: "SKU", value: "product_sku" },
         { text: "Stock", value: "stock_quantity" },
-        { text: "Totl Stock", value: "total_stock_quantity" },
+        { text: "Total Stock", value: "total_stock_quantity" },
         { text: "Created", value: "created_at" },
         { text: "Updated", value: "updated_at" },
         { text: "Actions", value: "actions", sortable: false },

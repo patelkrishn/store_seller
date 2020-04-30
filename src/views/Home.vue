@@ -3,7 +3,7 @@
     <!-- <GChart type="ColumnChart" :data="getMainChart.GChart" :options="chartOptions" /> -->
     <v-row class="hidden-md-and-down">
       <v-col cols="6">
-        <v-card class="mx-auto primary" style="border-radius:8px">
+        <v-card class="mx-auto primary" style="border-radius:8px" min-height="205">
           <v-card-text>
             <span style="font-size:25px;color:white">Your earnings</span>
             <v-row>
@@ -50,7 +50,7 @@
         </v-card>
       </v-col>
       <v-col>
-        <v-card class="mx-auto primary" style="border-radius:8px" >
+        <v-card class="mx-auto primary" style="border-radius:8px" min-height="205">
           <v-card-text>
             <span style="font-size:25px;color:white">Balance</span>
             <span style="font-size:15px;color:white">(Today so far)</span>
@@ -58,12 +58,10 @@
               <v-col cols="3.75">
                 <v-list-item two-line>
                   <v-list-item-content class="white--text">
-                    This Year
+                    Expenses
                     <v-list-item-title
                       class="headline mb-1 white--text"
-                    >₹5</v-list-item-title>
-                    +0 ₹
-                    <br />vs Last year
+                    >₹{{getMainChart.expenseTodaySoFar}}</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
               </v-col>
@@ -71,12 +69,10 @@
               <v-col cols="3.75">
                 <v-list-item two-line>
                   <v-list-item-content class="white--text">
-                    This Year
+                    Earnings
                     <v-list-item-title
                       class="headline mb-1 white--text"
-                    >₹406</v-list-item-title>
-                    +0 ₹
-                    <br />vs Last year
+                    >₹{{getMainChart.earningTodaySoFar}}</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
               </v-col>
@@ -84,12 +80,10 @@
               <v-col cols="3.75">
                 <v-list-item two-line>
                   <v-list-item-content class="white--text">
-                    This Year
+                    Balance
                     <v-list-item-title
                       class="headline mb-1 white--text"
-                    >₹1033</v-list-item-title>
-                    +0 ₹
-                    <br />vs Last year
+                    >₹{{getMainChart.earningTodaySoFar-getMainChart.expenseTodaySoFar}}</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
               </v-col>

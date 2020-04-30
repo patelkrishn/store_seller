@@ -40,9 +40,6 @@
         label="Selected product"
         readonly
       ></v-text-field>
-      <!-- <v-card-text class="justify-center display-1 font-weight-bold black--text">
-        {{inventory.product.product_name}}
-      </v-card-text> -->
     </v-card>
     <v-row class="mt-5">
       <v-col cols="6">
@@ -91,7 +88,6 @@ export default {
       isEditing: false,
       search : '',
       model: null,
-      products : ['foo', 'bar', 'fizz', 'buzz'],
       inventory: {
         product: '',
         stock_quantity : '',
@@ -108,6 +104,7 @@ export default {
           value: "product_name",
         },
         { text: "SKU", value: "product_sku" },
+        { text: "Product Price", value: "product_price" },
         { text: "Stock", value: "product_stock_quantity" },
         { text: "Actions", value: "actions", sortable: false },
       ]
