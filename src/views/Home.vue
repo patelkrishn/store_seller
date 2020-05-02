@@ -184,6 +184,47 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-row>
+      <v-col lg="4" md="4" sm="12" xs="12">
+        <v-card>
+          <v-card-title>
+            <span>Card 1</span>
+          </v-card-title>
+          <v-card-text>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio itaque asperiores tenetur aspernatur velit earum quibusdam voluptas, dignissimos commodi quae beatae in temporibus molestiae doloremque dolorem suscipit at? Necessitatibus, quos!
+          </v-card-text>
+          <v-card-action>
+            Card 1 action
+          </v-card-action>
+        </v-card>
+      </v-col>
+      <v-col lg="4" md="4" sm="12" xs="12">
+        <v-card>
+          <v-card-title>
+            <span>Card 1</span>
+          </v-card-title>
+          <v-card-text>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio itaque asperiores tenetur aspernatur velit earum quibusdam voluptas, dignissimos commodi quae beatae in temporibus molestiae doloremque dolorem suscipit at? Necessitatibus, quos!
+          </v-card-text>
+          <v-card-action>
+            Card 1 action
+          </v-card-action>
+        </v-card>
+      </v-col>
+      <v-col lg="4" md="4" sm="12" xs="12">
+        <v-card>
+          <v-card-title>
+            <span>Card 1</span>
+          </v-card-title>
+          <v-card-text>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio itaque asperiores tenetur aspernatur velit earum quibusdam voluptas, dignissimos commodi quae beatae in temporibus molestiae doloremque dolorem suscipit at? Necessitatibus, quos!
+          </v-card-text>
+          <v-card-action>
+            Card 1 action
+          </v-card-action>
+        </v-card>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
