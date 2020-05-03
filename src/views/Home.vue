@@ -3,7 +3,11 @@
     <!-- <GChart type="ColumnChart" :data="getMainChart.GChart" :options="chartOptions" /> -->
     <v-row class="hidden-md-and-down">
       <v-col cols="6">
-        <v-card class="mx-auto primary" style="border-radius:8px" min-height="205">
+        <v-card
+          class="mx-auto primary"
+          style="border-radius:8px"
+          min-height="205"
+        >
           <v-card-text>
             <span style="font-size:25px;color:white">Your earnings</span>
             <v-row>
@@ -11,11 +15,17 @@
                 <v-list-item two-line>
                   <v-list-item-content class="white--text">
                     Today
-                    <v-list-item-title
-                      class="headline mb-1 white--text"
-                    >₹{{getMainChart.todaySales}}</v-list-item-title>
-                    {{(getMainChart.todaySales-getMainChart.yesterdaySales) >0 ? '+'+(getMainChart.todaySales-getMainChart.yesterdaySales) : (getMainChart.todaySales-getMainChart.yesterdaySales)}} ₹
-                    <br />vs Yesterday
+                    <v-list-item-title class="headline mb-1 white--text"
+                      >₹{{ getMainChart.todaySales }}</v-list-item-title
+                    >
+                    {{
+                      getMainChart.todaySales - getMainChart.yesterdaySales > 0
+                        ? "+" +
+                          (getMainChart.todaySales -
+                            getMainChart.yesterdaySales)
+                        : getMainChart.todaySales - getMainChart.yesterdaySales
+                    }}
+                    ₹ <br />vs Yesterday
                   </v-list-item-content>
                 </v-list-item>
               </v-col>
@@ -24,11 +34,20 @@
                 <v-list-item two-line>
                   <v-list-item-content class="white--text">
                     This Month
-                    <v-list-item-title
-                      class="headline mb-1 white--text"
-                    >₹{{getMainChart.thisMonthSales}}</v-list-item-title>
-                    {{(getMainChart.thisMonthSales-getMainChart.lastMonthSales) >0 ? '+'+(getMainChart.thisMonthSales-getMainChart.lastMonthSales) : (getMainChart.thisMonthSales-getMainChart.lastMonthSales)}} ₹
-                    <br />vs Last month
+                    <v-list-item-title class="headline mb-1 white--text"
+                      >₹{{ getMainChart.thisMonthSales }}</v-list-item-title
+                    >
+                    {{
+                      getMainChart.thisMonthSales -
+                        getMainChart.lastMonthSales >
+                      0
+                        ? "+" +
+                          (getMainChart.thisMonthSales -
+                            getMainChart.lastMonthSales)
+                        : getMainChart.thisMonthSales -
+                          getMainChart.lastMonthSales
+                    }}
+                    ₹ <br />vs Last month
                   </v-list-item-content>
                 </v-list-item>
               </v-col>
@@ -37,11 +56,19 @@
                 <v-list-item two-line>
                   <v-list-item-content class="white--text">
                     This Year
-                    <v-list-item-title
-                      class="headline mb-1 white--text"
-                    >₹{{getMainChart.thisYearSales}}</v-list-item-title>
-                    {{(getMainChart.thisYearSales-getMainChart.lastYearSales) >0 ? '+'+(getMainChart.thisYearSales-getMainChart.lastYearSales) : (getMainChart.thisYearSales-getMainChart.lastYearSales)}} ₹
-                    <br />vs Last year
+                    <v-list-item-title class="headline mb-1 white--text"
+                      >₹{{ getMainChart.thisYearSales }}</v-list-item-title
+                    >
+                    {{
+                      getMainChart.thisYearSales - getMainChart.lastYearSales >
+                      0
+                        ? "+" +
+                          (getMainChart.thisYearSales -
+                            getMainChart.lastYearSales)
+                        : getMainChart.thisYearSales -
+                          getMainChart.lastYearSales
+                    }}
+                    ₹ <br />vs Last year
                   </v-list-item-content>
                 </v-list-item>
               </v-col>
@@ -50,7 +77,11 @@
         </v-card>
       </v-col>
       <v-col>
-        <v-card class="mx-auto primary" style="border-radius:8px" min-height="205">
+        <v-card
+          class="mx-auto primary"
+          style="border-radius:8px"
+          min-height="205"
+        >
           <v-card-text>
             <span style="font-size:25px;color:white">Balance</span>
             <span style="font-size:15px;color:white">(Today so far)</span>
@@ -59,9 +90,9 @@
                 <v-list-item two-line>
                   <v-list-item-content class="white--text">
                     Expenses
-                    <v-list-item-title
-                      class="headline mb-1 white--text"
-                    >₹{{getMainChart.expenseTodaySoFar}}</v-list-item-title>
+                    <v-list-item-title class="headline mb-1 white--text"
+                      >₹{{ getMainChart.expenseTodaySoFar }}</v-list-item-title
+                    >
                   </v-list-item-content>
                 </v-list-item>
               </v-col>
@@ -70,9 +101,9 @@
                 <v-list-item two-line>
                   <v-list-item-content class="white--text">
                     Earnings
-                    <v-list-item-title
-                      class="headline mb-1 white--text"
-                    >₹{{getMainChart.earningTodaySoFar}}</v-list-item-title>
+                    <v-list-item-title class="headline mb-1 white--text"
+                      >₹{{ getMainChart.earningTodaySoFar }}</v-list-item-title
+                    >
                   </v-list-item-content>
                 </v-list-item>
               </v-col>
@@ -81,9 +112,12 @@
                 <v-list-item two-line>
                   <v-list-item-content class="white--text">
                     Balance
-                    <v-list-item-title
-                      class="headline mb-1 white--text"
-                    >₹{{getMainChart.earningTodaySoFar-getMainChart.expenseTodaySoFar}}</v-list-item-title>
+                    <v-list-item-title class="headline mb-1 white--text"
+                      >₹{{
+                        getMainChart.earningTodaySoFar -
+                          getMainChart.expenseTodaySoFar
+                      }}</v-list-item-title
+                    >
                   </v-list-item-content>
                 </v-list-item>
               </v-col>
@@ -102,11 +136,17 @@
                 <v-list-item two-line>
                   <v-list-item-content class="white--text">
                     Today
-                    <v-list-item-title
-                      class="headline mb-1 white--text"
-                    >₹{{getMainChart.todaySales}}</v-list-item-title>
-                    {{(getMainChart.todaySales-getMainChart.yesterdaySales) >0 ? '+'+(getMainChart.todaySales-getMainChart.yesterdaySales) : (getMainChart.todaySales-getMainChart.yesterdaySales)}} ₹
-                    <br />vs Yesterday
+                    <v-list-item-title class="headline mb-1 white--text"
+                      >₹{{ getMainChart.todaySales }}</v-list-item-title
+                    >
+                    {{
+                      getMainChart.todaySales - getMainChart.yesterdaySales > 0
+                        ? "+" +
+                          (getMainChart.todaySales -
+                            getMainChart.yesterdaySales)
+                        : getMainChart.todaySales - getMainChart.yesterdaySales
+                    }}
+                    ₹ <br />vs Yesterday
                   </v-list-item-content>
                 </v-list-item>
               </v-col>
@@ -115,11 +155,20 @@
                 <v-list-item two-line>
                   <v-list-item-content class="white--text">
                     This Month
-                    <v-list-item-title
-                      class="headline mb-1 white--text"
-                    >₹{{getMainChart.thisMonthSales}}</v-list-item-title>
-                    {{(getMainChart.thisMonthSales-getMainChart.lastMonthSales) >0 ? '+'+(getMainChart.thisMonthSales-getMainChart.lastMonthSales) : (getMainChart.thisMonthSales-getMainChart.lastMonthSales)}} ₹
-                    <br />vs Last month
+                    <v-list-item-title class="headline mb-1 white--text"
+                      >₹{{ getMainChart.thisMonthSales }}</v-list-item-title
+                    >
+                    {{
+                      getMainChart.thisMonthSales -
+                        getMainChart.lastMonthSales >
+                      0
+                        ? "+" +
+                          (getMainChart.thisMonthSales -
+                            getMainChart.lastMonthSales)
+                        : getMainChart.thisMonthSales -
+                          getMainChart.lastMonthSales
+                    }}
+                    ₹ <br />vs Last month
                   </v-list-item-content>
                 </v-list-item>
               </v-col>
@@ -128,11 +177,19 @@
                 <v-list-item two-line>
                   <v-list-item-content class="white--text">
                     This Year
-                    <v-list-item-title
-                      class="headline mb-1 white--text"
-                    >₹{{getMainChart.thisYearSales}}</v-list-item-title>
-                    {{(getMainChart.thisYearSales-getMainChart.lastYearSales) >0 ? '+'+(getMainChart.thisYearSales-getMainChart.lastYearSales) : (getMainChart.thisYearSales-getMainChart.lastYearSales)}} ₹
-                    <br />vs Last year
+                    <v-list-item-title class="headline mb-1 white--text"
+                      >₹{{ getMainChart.thisYearSales }}</v-list-item-title
+                    >
+                    {{
+                      getMainChart.thisYearSales - getMainChart.lastYearSales >
+                      0
+                        ? "+" +
+                          (getMainChart.thisYearSales -
+                            getMainChart.lastYearSales)
+                        : getMainChart.thisYearSales -
+                          getMainChart.lastYearSales
+                    }}
+                    ₹ <br />vs Last year
                   </v-list-item-content>
                 </v-list-item>
               </v-col>
@@ -141,8 +198,11 @@
         </v-card>
       </v-col>
       <v-col cols="12">
-        
-        <v-card class="mx-auto primary" style="border-radius:8px" min-height="205">
+        <v-card
+          class="mx-auto primary"
+          style="border-radius:8px"
+          min-height="205"
+        >
           <v-card-text>
             <span style="font-size:25px;color:white">Balance</span>
             <span style="font-size:15px;color:white">(Today so far)</span>
@@ -151,9 +211,9 @@
                 <v-list-item two-line>
                   <v-list-item-content class="white--text">
                     Expenses
-                    <v-list-item-title
-                      class="headline mb-1 white--text"
-                    >₹{{getMainChart.expenseTodaySoFar}}</v-list-item-title>
+                    <v-list-item-title class="headline mb-1 white--text"
+                      >₹{{ getMainChart.expenseTodaySoFar }}</v-list-item-title
+                    >
                   </v-list-item-content>
                 </v-list-item>
               </v-col>
@@ -162,9 +222,9 @@
                 <v-list-item two-line>
                   <v-list-item-content class="white--text">
                     Earnings
-                    <v-list-item-title
-                      class="headline mb-1 white--text"
-                    >₹{{getMainChart.earningTodaySoFar}}</v-list-item-title>
+                    <v-list-item-title class="headline mb-1 white--text"
+                      >₹{{ getMainChart.earningTodaySoFar }}</v-list-item-title
+                    >
                   </v-list-item-content>
                 </v-list-item>
               </v-col>
@@ -173,9 +233,12 @@
                 <v-list-item two-line>
                   <v-list-item-content class="white--text">
                     Balance
-                    <v-list-item-title
-                      class="headline mb-1 white--text"
-                    >₹{{getMainChart.earningTodaySoFar-getMainChart.expenseTodaySoFar}}</v-list-item-title>
+                    <v-list-item-title class="headline mb-1 white--text"
+                      >₹{{
+                        getMainChart.earningTodaySoFar -
+                          getMainChart.expenseTodaySoFar
+                      }}</v-list-item-title
+                    >
                   </v-list-item-content>
                 </v-list-item>
               </v-col>
@@ -185,43 +248,18 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col lg="4" md="4" sm="12" xs="12">
+      <v-col cols="4">
         <v-card>
           <v-card-title>
-            <span>Card 1</span>
+            <span>Highest Sale</span>
           </v-card-title>
           <v-card-text>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio itaque asperiores tenetur aspernatur velit earum quibusdam voluptas, dignissimos commodi quae beatae in temporibus molestiae doloremque dolorem suscipit at? Necessitatibus, quos!
+            <apexchart
+              type="donut"
+              :options="getMainChart.highestSale.options"
+              :series="getMainChart.highestSale.series"
+            ></apexchart>
           </v-card-text>
-          <v-card-action>
-            Card 1 action
-          </v-card-action>
-        </v-card>
-      </v-col>
-      <v-col lg="4" md="4" sm="12" xs="12">
-        <v-card>
-          <v-card-title>
-            <span>Card 1</span>
-          </v-card-title>
-          <v-card-text>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio itaque asperiores tenetur aspernatur velit earum quibusdam voluptas, dignissimos commodi quae beatae in temporibus molestiae doloremque dolorem suscipit at? Necessitatibus, quos!
-          </v-card-text>
-          <v-card-action>
-            Card 1 action
-          </v-card-action>
-        </v-card>
-      </v-col>
-      <v-col lg="4" md="4" sm="12" xs="12">
-        <v-card>
-          <v-card-title>
-            <span>Card 1</span>
-          </v-card-title>
-          <v-card-text>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio itaque asperiores tenetur aspernatur velit earum quibusdam voluptas, dignissimos commodi quae beatae in temporibus molestiae doloremque dolorem suscipit at? Necessitatibus, quos!
-          </v-card-text>
-          <v-card-action>
-            Card 1 action
-          </v-card-action>
         </v-card>
       </v-col>
     </v-row>
@@ -230,32 +268,29 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import VueApexCharts from "vue-apexcharts";
+
 export default {
   name: "Home",
+  components: {
+    apexchart: VueApexCharts,
+  },
   data() {
     return {
-      // Array will be automatically processed with visualization.arrayToDataTable function
-      chartData: [],
-      chartOptions: {
-        chart: {
-          title: "Store Performance",
-          subtitle: "Last 24 hour sales"
-        }
-      }
+
     };
   },
   methods: {
-    ...mapActions(["fetchMainChart"])
+    ...mapActions(["fetchMainChart"]),
   },
   computed: {
-    ...mapGetters(["getMainChart"])
+    ...mapGetters(["getMainChart"]),
   },
   created() {
     this.fetchMainChart();
-  }
+  },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-</style>
+<style scoped></style>
