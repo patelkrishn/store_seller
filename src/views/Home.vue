@@ -1,6 +1,5 @@
 <template>
   <div style="margin:25px 50px 0px 50px">
-    <!-- <GChart type="ColumnChart" :data="getMainChart.GChart" :options="chartOptions" /> -->
     <v-row class="hidden-md-and-down">
       <v-col cols="6">
         <v-card
@@ -248,16 +247,68 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="4">
+      <v-col sm="6" lg="4" md="6">
         <v-card>
           <v-card-title>
-            <span>Highest Sale</span>
+            <span>Highest Sale</span><sub>(This months)</sub>
           </v-card-title>
           <v-card-text>
             <apexchart
               type="donut"
-              :options="getMainChart.highestSale.options"
-              :series="getMainChart.highestSale.series"
+              :options="{
+                palette: 'palette10',
+                labels: labels,
+                legend: {
+                  show: false,
+                },
+                noData: {
+                  text: 'No data available',
+                  align: 'center',
+                  verticalAlign: 'middle',
+                  offsetX: 0,
+                  offsetY: 0,
+                  style: {
+                    color: undefined,
+                    fontSize: '20px',
+                    fontFamily: undefined,
+                  },
+                },
+              }"
+              :series="series"
+            ></apexchart>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col sm="6" lg="4" md="6">
+        <v-card>
+          <v-card-title>
+            <span>Highest Sale</span><sub>(This months)</sub>
+          </v-card-title>
+          <v-card-text>
+            <apexchart
+             height="340"
+              type="line"
+              :options="{
+                xaxis: {
+                  categories: categories,
+                },
+                legend: {
+                  show: false,
+                },
+                noData: {
+                  text: 'No data available',
+                  align: 'center',
+                  verticalAlign: 'middle',
+                  offsetX: 0,
+                  offsetY: 0,
+                  style: {
+                    color: undefined,
+                    fontSize: '20px',
+                    fontFamily: undefined,
+                  },
+                },
+              }"
+              :series="date"
             ></apexchart>
           </v-card-text>
         </v-card>
@@ -277,7 +328,13 @@ export default {
   },
   data() {
     return {
-
+      labels:[],
+      date:[{
+        name: 'series-1',
+        data: []
+      }],
+      categories:[],
+      series:[],
     };
   },
   methods: {
@@ -288,6 +345,12 @@ export default {
   },
   created() {
     this.fetchMainChart();
+    setInterval(()=>{
+      this.labels=this.getMainChart.highestSale.productName
+      this.date[0].data=this.getMainChart.thisMonthSalesGraph.totalAmount
+      this.categories=this.getMainChart.thisMonthSalesGraph.date
+      this.series=this.getMainChart.highestSale.invoiceQuantity
+    },1900)
   },
 };
 </script>
