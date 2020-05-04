@@ -77,11 +77,11 @@
                 <!-- <v-spacer></v-spacer> -->
                 <v-btn color="blue darken-1" text @click="close">Close</v-btn>
                 <v-spacer></v-spacer>
-                <v-btn outlined class="light-blue darken-1 white--text" @click="printInvoice()">
+                <v-btn outlined class="light-blue darken-1 white--text" @click="printInvoice(invoice_name)">
                   Edit Invoice
                   <v-icon right>edit</v-icon>
                 </v-btn>
-                <v-btn outlined class="green darken-4 white--text" @click="printInvoice()">
+                <v-btn outlined class="green darken-4 white--text" @click="printInvoice(invoice_name)">
                   Print Invoice
                   <v-icon right>print</v-icon>
                 </v-btn>
@@ -132,10 +132,12 @@ export default {
     close() {
       this.dialog = false;
     },
-    printInvoice() {}
+    printInvoice(invoice_name) {
+      window.open(this.getApiUrl+'/invoices/print/'+invoice_name);
+    }
   },
   computed: {
-    ...mapGetters(["getAllInvoice", "getSingleInvoice"])
+    ...mapGetters(["getAllInvoice", "getSingleInvoice","getApiUrl"])
   },
   created() {
     this.fetchAllInvoices();
