@@ -350,7 +350,7 @@ export default {
       this.date[0].data=this.getMainChart.thisMonthSalesGraph.totalAmount
       this.categories=this.getMainChart.thisMonthSalesGraph.date
       this.series=this.getMainChart.highestSale.invoiceQuantity
-    },1900)
+    },100)
   },
 };
 </script>

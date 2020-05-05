@@ -2,7 +2,24 @@ import axios from "axios";
 import { router } from "../../../main";
 
 const state = {
-    mainChart:[],
+    mainChart:{
+      todaySales:[],
+      thisMonthSales:[],
+      thisYearSales:[],
+      yesterdaySales:[],
+      lastMonthSales:[],
+      lastYearSales:[],
+      expenseTodaySoFar:[],
+      earningTodaySoFar:[],
+      highestSale:{
+        invoiceQuantity:[],
+        productName:[],
+      },
+      thisMonthSalesGraph:{
+        totalAmount:[],
+        date:[],
+      },
+    },
 };
 
 const getters = {
