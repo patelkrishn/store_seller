@@ -60,6 +60,7 @@
                               label="Product price"
                               :rules="[validationRules.required]"
                               outlined
+                              @keyup.enter="save"
                             ></v-text-field>
                           </v-col>
                         </v-row>

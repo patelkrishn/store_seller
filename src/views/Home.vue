@@ -246,8 +246,8 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col sm="6" lg="4" md="6">
+    <v-row class="hidden-md-and-down">
+      <v-col cols="4">
         <v-card>
           <v-card-title>
             <span>Highest Sale</span><sub>(This months)</sub>
@@ -279,15 +279,83 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col sm="6" lg="4" md="6">
+      <v-col cols="8">
         <v-card>
           <v-card-title>
             <span>Highest Sale</span><sub>(This months)</sub>
           </v-card-title>
           <v-card-text>
             <apexchart
-             height="340"
               type="line"
+             height="340"
+              :options="{
+                xaxis: {
+                  categories: categories,
+                },
+                legend: {
+                  show: false,
+                },
+                noData: {
+                  text: 'No data available',
+                  align: 'center',
+                  verticalAlign: 'middle',
+                  offsetX: 0,
+                  offsetY: 0,
+                  style: {
+                    color: undefined,
+                    fontSize: '20px',
+                    fontFamily: undefined,
+                  },
+                },
+              }"
+              :series="date"
+            ></apexchart>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+    <v-row class="hidden-lg-and-up">
+      <v-col cols="12" md="5" sm="8">
+        <v-card>
+          <v-card-title>
+            <span>Highest Sale</span><sub>(This months)</sub>
+          </v-card-title>
+          <v-card-text>
+            <apexchart
+              type="donut"
+              :options="{
+                palette: 'palette10',
+                labels: labels,
+                legend: {
+                  show: false,
+                },
+                noData: {
+                  text: 'No data available',
+                  align: 'center',
+                  verticalAlign: 'middle',
+                  offsetX: 0,
+                  offsetY: 0,
+                  style: {
+                    color: undefined,
+                    fontSize: '20px',
+                    fontFamily: undefined,
+                  },
+                },
+              }"
+              :series="series"
+            ></apexchart>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col cols="12">
+        <v-card>
+          <v-card-title>
+            <span>Highest Sale</span><sub>(This months)</sub>
+          </v-card-title>
+          <v-card-text>
+            <apexchart
+              type="line"
+             height="340"
               :options="{
                 xaxis: {
                   categories: categories,
@@ -330,7 +398,7 @@ export default {
     return {
       labels:[],
       date:[{
-        name: 'series-1',
+        name: 'Sales',
         data: []
       }],
       categories:[],

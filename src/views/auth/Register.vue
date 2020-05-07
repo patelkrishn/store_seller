@@ -58,6 +58,7 @@
                     prepend-icon="lock"
                     type="password"
                     v-model="form.password"
+                    @keyup.enter="authenticate"
                   ></v-text-field>
                 </v-form>
               </v-card-text>

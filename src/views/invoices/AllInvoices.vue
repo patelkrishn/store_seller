@@ -44,7 +44,6 @@
             </v-card-title>
             <v-divider></v-divider>
             <v-card-text>
-              <v-container>
                 <v-simple-table fixed-header height="300px">
                   <template v-slot:default>
                     <thead>
@@ -86,7 +85,6 @@
                     </tfoot>
                   </template>
                 </v-simple-table>
-              </v-container>
             </v-card-text>
             <v-divider></v-divider>
             <v-card-actions>

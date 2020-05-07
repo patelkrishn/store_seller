@@ -2,44 +2,19 @@
 
   <v-container>
     <v-form ref="form">
-      <v-data-table
-            :headers="headers"
-            :items="getAllProducts"
-            sort-by="calories"
-            class="elevation-1"
-        >
-          <template v-slot:top>
-            <v-toolbar flat color="white">
-              <v-toolbar-title>Products</v-toolbar-title>
-              <v-divider class="mx-4" inset vertical></v-divider>
-              <v-spacer></v-spacer>
-              <v-text-field
-              dense=""
-                    v-model="search"
-                    append-icon="mdi-magnify"
-                    label="Search"
-                    single-line
-                    hide-details
-                ></v-text-field>
-              
-            </v-toolbar>
-          </template>
-          <template v-slot:item.actions="{ item }">
-              <v-btn color="blue darken-1" outlined="" text @click="inventory.product = item"
-                        >Select this</v-btn
-                      >
-          </template>
-        </v-data-table>
+        
     <v-card 
       class="pt-5 pl-5 pr-5 mt-5"
       outlined> 
-      <v-text-field
-        v-model="inventory.product.product_name"
-        :rules="[validationRules.required]"
-        outlined
-        label="Selected product"
-        readonly
-      ></v-text-field>
+      <v-autocomplete
+              v-model="selectedProductId"
+              :items="getAllProducts"
+              outlined=""
+              label="Select Product"
+              item-value="id"
+              item-text="product_name"
+              :rules="[validationRules.required]"
+            ></v-autocomplete>
     </v-card>
     <v-row class="mt-5">
       <v-col cols="6">
@@ -47,7 +22,7 @@
       class="pt-5 pl-5 pr-5"
       outlined>
       <v-text-field
-        v-model="inventory.stock_quantity"
+        v-model="stock_quantity"
         label="Product quantity"
         :rules="[validationRules.required]"
         outlined
@@ -60,10 +35,11 @@
       class="pt-5 pl-5 pr-5"
       outlined>
       <v-text-field
-        v-model="inventory.principle_amount"
+        v-model="principle_amount"
         label="Product price"
         :rules="[validationRules.required]"
         outlined
+        @keyup.enter="submitInventory"
       ></v-text-field>
     </v-card>
     </v-col>
@@ -85,14 +61,11 @@ export default {
   name: "InventoryAdd",
   data() {
     return {
-      isEditing: false,
       search : '',
       model: null,
-      inventory: {
-        product: '',
-        stock_quantity : '',
-        principle_amount:''
-      },
+      selectedProductId: null,
+      stock_quantity : '',
+      principle_amount:'',
       validationRules: {
         required: (value) => !!value || "Required.",
       },
@@ -115,9 +88,9 @@ export default {
     submitInventory(){
       if (this.$refs.form.validate()) {
         let credentials={
-          product_id : this.inventory.product.id,
-          stock_quantity : this.inventory.stock_quantity,
-          principle_amount : this.inventory.principle_amount
+          product_id : this.selectedProductId,
+          stock_quantity : this.stock_quantity,
+          principle_amount : this.principle_amount
         };
         this.insertInventory(credentials);
         this.$refs.form.reset();

@@ -43,6 +43,7 @@
                     type="password"
                     v-model="form.password"
                     outlined
+                    @keyup.enter="authenticate"
                   ></v-text-field>
                 </v-form>
               </v-card-text>
